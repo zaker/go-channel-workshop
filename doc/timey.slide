@@ -1,0 +1,60 @@
+Timey whimey
+Synchronize Asynchronous code in go
+26 Aug 2019
+Tags: go, channels, time
+
+Sondre Naustdal
+Developer, Experis 
+snaus@equinor.com
+https://github.com/zaker
+@z_aker
+
+* The task
+Every second a job should trigger, for a total of 5 times. 
+The jobs will share resources.
+
+.image img/simple.png _ 1024
+
+
+* Library code - functions for doing stuff
+.code ../src/utils.go /START OMIT/,/END OMIT/
+
+* Simple timer
+If one where new to job scheduling, the code might turn out to something like this
+.play -edit ../src/simple-timer.go /START OMIT/,/END OMIT/
+
+- This isn't correct though
+
+* Timer from channel
+Use the standard library, we're not inventing anything new. 
+.play -edit ../src/channel-timer.go /START OMIT/,/END OMIT/
+
+* Concurrency
+We want to get rid of as many books as fast as the resources allow
+
+.image img/channel.png _ 1024
+
+
+* Go routines
+.play -edit ../src/coroutine-timer.go /START OMIT/,/END OMIT/
+
+* Parallel concurrency
+We want to get rid of more books adding more resources
+
+.image img/channel.png _ 512
+.image img/channel.png _ 512
+
+
+* Paralell Go routines
+.play -edit ../src/parcor-timer.go /START OMIT/,/END OMIT/
+
+* Library code - functions for doing stuff safely
+.code ../src/utils.go /START CHAN/,/END CHAN/
+
+* Library code - functions for doing stuff safely
+.code ../src/utils.go /START SAFE/,/END SAFE/
+
+* Interesting read
+
+- [[https://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time][_Falsehoods_ programmers believe about time]]
+- [[https://blog.golang.org/concurrency-is-not-parallelism][Concurrency is not parallelism]]
